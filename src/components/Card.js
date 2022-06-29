@@ -6,20 +6,22 @@ import card1 from '../assets/card1Image.png'
 import card2 from '../assets/card2Image.png'
 import card3 from '../assets/mountain-bike-1.png'
 
-export default function Card({img, status, reviewScore, reviewCount, country, title, cost}) {
-    let alt = "Image for " + title
+export default function Card(props) {
+    let alt = `Image for ${props.title}`
     let cardImages =
       {"card1": card1, "card2": card2, "card3": card3}
-
+    // console.log(cardImages[props.coverImg])
     return (
             <div className="card--container">
-                <img src={cardImages[img]} alt={alt}  width="174px"/>
-                <div className="card--status">{status}</div>
+                <img src={cardImages[props.coverImg]} alt={alt}  width="174px"/>
+                {/* <img src={cardImages[props.coverImg]}  width="174px"/> */}
+                {props.openSpots && <div className="card--status">{props.openSpots} left</div>}
+                {!props.openSpots && <div className="card--status">Sold out</div>}
                 <div className="card--data">
                     <div className="card--text">
-                        <div className="card--stars"><img src={imgStar} alt="star symbol" /> {reviewScore} <span className="gray">({reviewCount}) <img src={imgEllipse} alt="ellipse separator" className="ellipse" /> {country}</span></div>
-                        <div className="card--title">{title}</div>
-                        <div className="card--cost"><b>From {cost}</b> / person</div>
+                        <div className="card--stars"><img src={imgStar} alt="star symbol" /> {props.rating} <span className="gray">({props.reviewCount}) <img src={imgEllipse} alt="ellipse separator" className="ellipse" /> {props.location}</span></div>
+                        <div className="card--title">{props.title}</div>
+                        <div className="card--cost"><b>From £{props.price}</b> / person</div>
                     </div>
                 </div>
             </div>
